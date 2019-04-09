@@ -4,19 +4,26 @@
  *  Lab 1
  */
 
+%{
+  int intCount   = 0;
+  int opCount    = 0;
+  int parenCount = 0;
+  int eqCount    = 0;
+%}
+
 NUMBER     [0-9]
 
 %%
 
-"+"        { printf("PLUS\n");     }
-"-"        { printf("SUB\n");      }
-"*"        { printf("MULT\n");     }
-"/"        { printf("DIV\n");      }
-"("        { printf("L_PAREN\n");  }
-")"        { printf("R_PAREN\n");  }
-"="        { printf("EQUALS\n");   }
+"+"        { printf("PLUS\n"); opCount++;        }
+"-"        { printf("SUB\n");  opCount++;        }
+"*"        { printf("MULT\n"); opCount++;        }
+"/"        { printf("DIV\n");  opCount++;        }
+"("        { printf("L_PAREN\n"); parenCount++;  }
+")"        { printf("R_PAREN\n"); parenCount++;  }
+"="        { printf("EQUALS\n");  eqCount++;     }
 
-{NUMBER}+  { printf("NUMBER(%s)\n", yytext); }
+{NUMBER}+  { printf("NUMBER(%s)\n", yytext); intCount++; }
 .          { printf("ERROR: Unidentified character encountered! Exiting...\n\n");
              exit(0); }
 
@@ -38,7 +45,13 @@ int main(int argc, char ** argv)
           }
 
      }
-     printf("***Running Task 1*** \n\n");
+
      printf("Please enter an expression:\n");
+
      yylex();
+
+     printf("# of integers encountered: %d\n", intCount);
+     printf("# of operators encountered: %d\n", opCount);
+     printf("# of parenthesis encountered: %d\n", parenCount);
+     printf("# of equal signs encountered: %d\n", eqCount);
 }
