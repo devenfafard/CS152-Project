@@ -22,8 +22,22 @@ NUMBER     [0-9]
 
 %%
 
-main()
+int main(int argc, char ** argv)
 {
+     if(argc >= 2)
+     {
+          //Open the file readonly
+          yyin = fopen(argv[1], "r");
+          if(yyin == NULL)
+          {
+               yyin = stdin;
+          }
+          else //No file specified
+          {
+               yyin = stdin;
+          }
+
+     }
      printf("***Running Task 1*** \n\n");
      printf("Please enter an expression:\n");
      yylex();
