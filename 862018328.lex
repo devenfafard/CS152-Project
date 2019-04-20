@@ -12,6 +12,7 @@
 NUMBER         [0-9]
 IDENTIFIER     [A-Z|a-z]
 COMMENT        [##(0-9|a-z|A-Z|~|!|@|#|$|%|^|&|*|(|)|_|+|}|{|"|:|?|>|<|/|.|,|'|;|]|[|=|-|`)\n]
+
 %%
 
 "function"     { printf("FUNCTION\n"); currentPosition += yyleng;        } 
