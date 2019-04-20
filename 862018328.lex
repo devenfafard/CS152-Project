@@ -10,9 +10,8 @@
 %}
 
 NUMBER         [0-9]
-IDENTIFIER     [A-Z]
-COMMENT        [##(A-Z|0-9|.| )/t] 
-
+IDENTIFIER     [A-Z|a-z]
+COMMENT        [##(0-9|a-z|A-Z|~|!|@|#|$|%|^|&|*|(|)|_|+|}|{|"|:|?|>|<|/|.|,|'|;|]|[|=|-|`)\n]
 %%
 
 "function"     { printf("FUNCTION\n"); currentPosition += yyleng;        } 
@@ -71,6 +70,7 @@ COMMENT        [##(A-Z|0-9|.| )/t]
 [ \t]+         { currentPosition += yyleng; }
 .              { printf("Error at line %u, column %u: unrecognized symbol \" %s \" \n", 
                          currentLine, currentPosition, yytext); exit(0); }
+{COMMENT}+     { /* IGNORE */ }
 
 %%
 
