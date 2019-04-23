@@ -10,7 +10,9 @@
 %}
 
 NUMBER         [0-9]
-IDENTIFIER     [A-Z|a-z]
+ALPHA          [A-Z|a-z]
+ALPHANUMERIC   [a-Z|A-Z|0-9]
+VALID          {ALPHANUMERIC}|_
 
 %%
 
@@ -64,13 +66,17 @@ IDENTIFIER     [A-Z|a-z]
 "]"            { currentPosition += yyleng; return R_SQUARE_BRACKET; }
 ":="           { currentPosition += yyleng; return ASSIGN;           }
 
-{NUMBER}+      { currentPosition += yyleng; yylval.dval = atof(yytext); return NUMBER;  }
-{IDENTIFIER}+  { printf("IDENTIFIER %s\n", yytext); currentPosition += yyleng;          }
-"\n"           { currentLine++; currentPosition = 1; return END;                        }
-[ \t]+         { currentPosition += yyleng;                                             }
-.              { printf("Error at line %u, column %u: unrecognized symbol \" %s \" \n",  
-                         currentLine, currentPosition, yytext); exit(0);                }
-"##".*         { /*ignore spaces*/ currentPosition =1; currentLine++;                   }
+{NUMBER}+                  { currentPosition += yyleng; yylval.dval = atof(yytext); return NUMBER; }
+{ALPHA}(_*{ALPHANUMERIC}*) { printf("IDENTIFIER %s\n", yytext); currentPosition += yyleng; }
+
+"##".*           { /*ignore spaces*/ currentPosition = 1; currentLine++; }
+"\n"             { currentLine++; currentPosition = 1; return END; }
+[ \t]+           { currentPosition += yyleng; }
+
+_({VALID}*)         { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
+{DIGIT}+({VALID}*)  { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
+{VALID}*_           { printf("Error at line %u, column %u: Identifier \" %s \" cannot end with an underscore", currentLine, currentPosition, yytext); exit(0); }
+.                   { printf("Error at line %u, column %u: unrecognized symbol \" %s \" \n", currentLine, currentPosition, yytext); exit(0); }
 
 %%
 
