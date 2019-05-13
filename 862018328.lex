@@ -6,7 +6,7 @@
 
 %{
    #include "heading.h"
-   #include "tok.h"
+   
 %}
 
 		int currentLine = 1;
