@@ -492,7 +492,7 @@ char *yytext;
  */
 #line 8 "862018328.lex"
    #include "heading.h"
-   #include "tok.h"
+   
 int currentLine = 1;
 int currentPosition = 1;
 #line 499 "lex.yy.c"
