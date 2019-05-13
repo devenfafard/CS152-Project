@@ -11,7 +11,7 @@
 
 NUMBER         [0-9]
 ALPHA          [A-Z|a-z]
-ALPHANUMERIC   [a-Z|A-Z|0-9]
+ALPHANUMERIC   [a-z|A-Z|0-9]
 VALID          {ALPHANUMERIC}|_
 
 %%
@@ -73,8 +73,8 @@ VALID          {ALPHANUMERIC}|_
 "\n"             { currentLine++; currentPosition = 1; return END; }
 [ \t]+           { currentPosition += yyleng; }
 
-_({VALID}*)         { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
-{DIGIT}+({VALID}*)  { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
+\_({VALID}*)         { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
+{NUMBER}+({VALID}*)  { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
 {VALID}*_           { printf("Error at line %u, column %u: Identifier \" %s \" cannot end with an underscore", currentLine, currentPosition, yytext); exit(0); }
 .                   { printf("Error at line %u, column %u: unrecognized symbol \" %s \" \n", currentLine, currentPosition, yytext); exit(0); }
 

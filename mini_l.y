@@ -15,7 +15,7 @@
 %token FUNCTION BEGINPARAMS ENDPARAMS BEGINLOCALS ENDLOCALS BEGINBODY ENDBODY INTEGER 
        ARRAY OF IF THEN ENDIF ELSE WHILE DO BEGINLOOP ENDLOOP CONTINUE READ WRITE AND
        OR NOT TRUE FALSE RETURN SEMICOLON COLON COMMA L_PAREN R_PAREN L_SQUARE_BRACKET
-       R_SQUARE__BRACKET ASSIGN
+       R_SQUARE_BRACKET ASSIGN
 
 %token <val> NUMBER
 %token <op_val> IDENTIFIER
@@ -44,7 +44,7 @@ declarations:  declaration SEMICOLON declarations { cout << "declarations -> dec
                | { cout << "declarations -> EMPTY" << endl; }
                ;
 
-declaration:   identifier COLON assign { cout << "id COLON assign" << endl; }
+declaration:   id COLON assign { cout << "id COLON assign" << endl; }
                ;
 
 id:            IDENTIFIER { cout << "id -> IDENTIFIER " << *($1) << endl; }
@@ -163,12 +163,15 @@ var:               IDENTIFIER { cout << "var -> IDENT " <<*($1) << endl;}
                    | IDENTIFIER L_SQUARE_BRACKET expression R_SQUARE_BRACKET { cout << "var -> IDENT " <<*(1)<< " L_SQUARE_BRACKET expression R_SQUARE_BRACKET" << endl; }
                    ;
 
+%%
+
 int yyerror(string s)
 {
      extern int row, column;
      extern char *yytext;
 
      cerr << "Error at line " << row << ", column " << column <<" : unexpected symbol " << yytext << "." << endl;
+     exit(1);
 }
 
 int yyerror(char *s)
