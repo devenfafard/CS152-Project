@@ -10,67 +10,73 @@
 %}
 
 NUMBER         [0-9]
-IDENTIFIER     [A-Z]
-COMMENT        [##(A-Z|0-9|.| )/t] 
+ALPHA          [A-Z|a-z]
+ALPHANUMERIC   [a-Z|A-Z|0-9]
+VALID          {ALPHANUMERIC}|_
 
 %%
 
-"function"     { printf("FUNCTION\n"); currentPosition += yyleng;        } 
-"beginparams"  { printf("BEGIN_PARAMS\n"); currentPosition += yyleng;    }
-"endparams"    { printf("END_PARAMS\n"); currentPosition += yyleng;      }
-"beginlocals"  { printf("BEGIN_LOCALS\n"); currentPosition += yyleng;    }
-"endlocals"    { printf("END_LOCALS\n"); currentPosition += yyleng;      }
-"beginbody"    { printf("BEGIN_BODY\n"); currentPosition += yyleng;      }
-"endbody"      { printf("END_BODY\n"); currentPosition += yyleng;        }
-"integer"      { printf("INTEGER\n"); currentPosition += yyleng;         }
-"array"        { printf("ARRAY\n"); currentPosition += yyleng;           }
-"of"           { printf("OF\n"); currentPosition += yyleng;              }
-"if"           { printf("IF\n"); currentPosition += yyleng;              }
-"then"         { printf("THEN\n"); currentPosition += yyleng;            }
-"endif"        { printf("ENDIF\n"); currentPosition += yyleng;           }
-"else"         { printf("ELSE\n"); currentPosition += yyleng;            }
-"while"        { printf("WHILE\n"); currentPosition += yyleng;           }
-"do"           { printf("DO\n"); currentPosition += yyleng;              }
-"beginloop"    { printf("BEGINLOOP\n"); currentPosition += yyleng;       }
-"endloop"      { printf("ENDLOOP\n"); currentPosition += yyleng;         }
-"continue"     { printf("CONTINUE\n"); currentPosition += yyleng;        }
-"read"         { printf("READ\n"); currentPosition += yyleng;            }
-"write"        { printf("WRITE\n"); currentPosition += yyleng;           }
-"and"          { printf("AND\n"); currentPosition += yyleng;             }
-"or"           { printf("OR\n"); currentPosition += yyleng;              }
-"not"          { printf("NOT\n"); currentPosition += yyleng;             }
-"true"         { printf("TRUE\n"); currentPosition += yyleng;            }
-"false"        { printf("FALSE\n"); currentPosition += yyleng;           }
-"return"       { printf("RETURN\n"); currentPosition += yyleng;          }
+"function"     { currentPosition += yyleng; return FUNCTION;         } 
+"beginparams"  { currentPosition += yyleng; return BEGIN_PARAMS;     }
+"endparams"    { currentPosition += yyleng; return END_PARAMS;       }
+"beginlocals"  { currentPosition += yyleng; return BEGIN_LOCALS;     }
+"endlocals"    { currentPosition += yyleng; return END_LOCALS;       }
+"beginbody"    { currentPosition += yyleng; return BEGIN_BODY;       }
+"endbody"      { currentPosition += yyleng; return END_BODY;         }
+"integer"      { currentPosition += yyleng; return INTEGER;          }
+"array"        { currentPosition += yyleng; return ARRAY;            }
+"of"           { currentPosition += yyleng; return OF;               }
+"if"           { currentPosition += yyleng; return IS;               }
+"then"         { currentPosition += yyleng; return THEN;             }
+"endif"        { currentPosition += yyleng; return ENDIF;            }
+"else"         { currentPosition += yyleng; return ELSE;             }
+"while"        { currentPosition += yyleng; return WHILE;            }
+"do"           { currentPosition += yyleng; return DO;               }
+"beginloop"    { currentPosition += yyleng; return BEGINLOOP;        }
+"endloop"      { currentPosition += yyleng; return ENDLOOP;          }
+"continue"     { currentPosition += yyleng; return CONTINUE;         }
+"read"         { currentPosition += yyleng; return READ;             }
+"write"        { currentPosition += yyleng; return WRITE;            }
+"and"          { currentPosition += yyleng; return AND;              }
+"or"           { currentPosition += yyleng; return OR;               }
+"not"          { currentPosition += yyleng; return NOT;              }
+"true"         { currentPosition += yyleng; return TRUE;             }
+"false"        { currentPosition += yyleng; return FALSE;            }
+"return"       { currentPosition += yyleng; return RETURN;           }
 
-"-"            { printf("SUB\n"); currentPosition += yyleng;             }
-"+"            { printf("ADD\n"); currentPosition += yyleng;             }
-"*"            { printf("MULT\n"); currentPosition += yyleng;            }
-"/"            { printf("DIV\n"); currentPosition += yyleng;             }
-"%"            { printf("MOD\n");              }
+"-"            { currentPosition += yyleng; return SUB;              }
+"+"            { currentPosition += yyleng; return ADD;              }
+"*"            { currentPosition += yyleng; return MULT;             }
+"/"            { currentPosition += yyleng; return DIV;              }
+"%"            { currentPosition += yyleng; return MOD;              }
 
-"=="           { printf("EQ\n"); currentPosition += yyleng;              }
-"<>"           { printf("NEQ\n"); currentPosition += yyleng;             }
-"<"            { printf("LT\n"); currentPosition += yyleng;              }
-">"            { printf("GT\n"); currentPosition += yyleng;              }
-"<="           { printf("LTE\n"); currentPosition += yyleng;             }
-">="           { printf("GTE\n"); currentPosition += yyleng;             }
+"=="           { currentPosition += yyleng; return EQ;               }
+"<>"           { currentPosition += yyleng; return NEQ;              }
+"<"            { currentPosition += yyleng; return LT;               }
+">"            { currentPosition += yyleng; return GT;               }
+"<="           { currentPosition += yyleng; return LTE;              }
+">="           { currentPosition += yyleng; return GTE;              }
 
-";"            { printf("SEMICOLON\n"); currentPosition += yyleng;       }
-":"            { printf("COLON\n"); currentPosition += yyleng;           }
-","            { printf("COMMA\n"); currentPosition += yyleng;           }
-"("            { printf("L_PAREN\n"); currentPosition += yyleng;         }
-")"            { printf("R_PAREN\n"); currentPosition += yyleng;         }
-"["            { printf("L_SQUARE_BRACKET\n"); currentPosition += yyleng; }
-"]"            { printf("R_SQUARE_BRACKET\n"); currentPosition += yyleng; }
-":="           { printf("ASSIGN\n"); currentPosition += yyleng;          }
+";"            { currentPosition += yyleng; return SEMICOLON;        }
+":"            { currentPosition += yyleng; return COLON;            }
+","            { currentPosition += yyleng; return COMMA;            }
+"("            { currentPosition += yyleng; return L_PAREN;          }
+")"            { currentPosition += yyleng; return R_PAREN;          }
+"["            { currentPosition += yyleng; return L_SQUARE_BRACKET; }
+"]"            { currentPosition += yyleng; return R_SQUARE_BRACKET; }
+":="           { currentPosition += yyleng; return ASSIGN;           }
 
-{NUMBER}+      { printf("NUMBER %s\n", yytext); currentPosition += yyleng; }
-{IDENTIFIER}+  { printf("IDENTIFIER %s\n", yytext); currentPosition += yyleng; }
-"\n"           { currentLine++; currentPosition = 1; }
-[ \t]+         { currentPosition += yyleng; }
-.              { printf("Error at line %u, column %u: unrecognized symbol \" %s \" \n", 
-                         currentLine, currentPosition, yytext); exit(0); }
+{NUMBER}+                  { currentPosition += yyleng; yylval.dval = atof(yytext); return NUMBER; }
+{ALPHA}(_*{ALPHANUMERIC}*) { printf("IDENTIFIER %s\n", yytext); currentPosition += yyleng; }
+
+"##".*           { /*ignore spaces*/ currentPosition = 1; currentLine++; }
+"\n"             { currentLine++; currentPosition = 1; return END; }
+[ \t]+           { currentPosition += yyleng; }
+
+_({VALID}*)         { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
+{DIGIT}+({VALID}*)  { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
+{VALID}*_           { printf("Error at line %u, column %u: Identifier \" %s \" cannot end with an underscore", currentLine, currentPosition, yytext); exit(0); }
+.                   { printf("Error at line %u, column %u: unrecognized symbol \" %s \" \n", currentLine, currentPosition, yytext); exit(0); }
 
 %%
 
