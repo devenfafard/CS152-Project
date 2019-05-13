@@ -159,8 +159,8 @@ term_ex:           expression { cout << "term_ex -> expression" << endl; }
                    | expression COMMA term_ex { cout << "term_ex -> expression COMMA term_ex" << endl; }
                    ;
 
-var:               IDENTIFIER { cout << "var -> IDENT " <<*($1) << endl;}
-                   | IDENTIFIER L_SQUARE_BRACKET expression R_SQUARE_BRACKET { cout << "var -> IDENT " <<*(1)<< " L_SQUARE_BRACKET expression R_SQUARE_BRACKET" << endl; }
+var:               IDENTIFIER { cout << "var -> IDENT " <<*($1)<< endl;}
+                   | IDENTIFIER L_SQUARE_BRACKET expression R_SQUARE_BRACKET { cout << "var -> IDENT " <<*($1)<< " L_SQUARE_BRACKET expression R_SQUARE_BRACKET" << endl; }
                    ;
 
 %%
