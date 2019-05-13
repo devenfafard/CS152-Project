@@ -5,9 +5,12 @@
  */
 
 %{
-   int currentLine = 1;
-   int currentPosition = 1;
+   #include "heading.h"
+   #include "tok.h"
 %}
+
+		int currentLine = 1;
+   		int currentPosition = 1;
 
 NUMBER         [0-9]
 ALPHA          [A-Z|a-z]
@@ -79,26 +82,3 @@ VALID          {ALPHANUMERIC}|_
 .                   { printf("Error at line %u, column %u: unrecognized symbol \" %s \" \n", currentLine, currentPosition, yytext); exit(0); }
 
 %%
-
-int main(int argc, char ** argv)
-{
-     //Give the option to specify file or stdin input
-     if(argc >= 2)
-     {
-          //Open the file readonly
-          yyin = fopen(argv[1], "r");
-          
-          //If yyin failed to open, revert to stdin
-          if(yyin == NULL)
-          {
-               yyin = stdin;
-          }
-          else //Case where no file was specified to begin with
-          {
-               yyin = stdin;
-          }
-     }
-
-     //Run the lexer
-     yylex();
-}

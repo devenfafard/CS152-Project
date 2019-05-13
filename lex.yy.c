@@ -491,9 +491,11 @@ char *yytext;
  * Phase 1
  */
 #line 8 "862018328.lex"
-   int currentLine = 1;
-   int currentPosition = 1;
-#line 497 "lex.yy.c"
+   #include "heading.h"
+   #include "tok.h"
+int currentLine = 1;
+int currentPosition = 1;
+#line 499 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -644,10 +646,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 17 "862018328.lex"
+#line 20 "862018328.lex"
 
 
-#line 651 "lex.yy.c"
+#line 653 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -732,285 +734,285 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 19 "862018328.lex"
+#line 22 "862018328.lex"
 { currentPosition += yyleng; return FUNCTION;         } 
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 20 "862018328.lex"
+#line 23 "862018328.lex"
 { currentPosition += yyleng; return BEGIN_PARAMS;     }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 21 "862018328.lex"
+#line 24 "862018328.lex"
 { currentPosition += yyleng; return END_PARAMS;       }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 22 "862018328.lex"
+#line 25 "862018328.lex"
 { currentPosition += yyleng; return BEGIN_LOCALS;     }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 "862018328.lex"
+#line 26 "862018328.lex"
 { currentPosition += yyleng; return END_LOCALS;       }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 "862018328.lex"
+#line 27 "862018328.lex"
 { currentPosition += yyleng; return BEGIN_BODY;       }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 25 "862018328.lex"
+#line 28 "862018328.lex"
 { currentPosition += yyleng; return END_BODY;         }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 26 "862018328.lex"
+#line 29 "862018328.lex"
 { currentPosition += yyleng; return INTEGER;          }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 27 "862018328.lex"
+#line 30 "862018328.lex"
 { currentPosition += yyleng; return ARRAY;            }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 28 "862018328.lex"
+#line 31 "862018328.lex"
 { currentPosition += yyleng; return OF;               }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 29 "862018328.lex"
+#line 32 "862018328.lex"
 { currentPosition += yyleng; return IS;               }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 30 "862018328.lex"
+#line 33 "862018328.lex"
 { currentPosition += yyleng; return THEN;             }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 31 "862018328.lex"
+#line 34 "862018328.lex"
 { currentPosition += yyleng; return ENDIF;            }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 32 "862018328.lex"
+#line 35 "862018328.lex"
 { currentPosition += yyleng; return ELSE;             }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 33 "862018328.lex"
+#line 36 "862018328.lex"
 { currentPosition += yyleng; return WHILE;            }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 34 "862018328.lex"
+#line 37 "862018328.lex"
 { currentPosition += yyleng; return DO;               }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 35 "862018328.lex"
+#line 38 "862018328.lex"
 { currentPosition += yyleng; return BEGINLOOP;        }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 36 "862018328.lex"
+#line 39 "862018328.lex"
 { currentPosition += yyleng; return ENDLOOP;          }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 37 "862018328.lex"
+#line 40 "862018328.lex"
 { currentPosition += yyleng; return CONTINUE;         }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 38 "862018328.lex"
+#line 41 "862018328.lex"
 { currentPosition += yyleng; return READ;             }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 39 "862018328.lex"
+#line 42 "862018328.lex"
 { currentPosition += yyleng; return WRITE;            }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 40 "862018328.lex"
+#line 43 "862018328.lex"
 { currentPosition += yyleng; return AND;              }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 41 "862018328.lex"
+#line 44 "862018328.lex"
 { currentPosition += yyleng; return OR;               }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 42 "862018328.lex"
+#line 45 "862018328.lex"
 { currentPosition += yyleng; return NOT;              }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 43 "862018328.lex"
+#line 46 "862018328.lex"
 { currentPosition += yyleng; return TRUE;             }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 44 "862018328.lex"
+#line 47 "862018328.lex"
 { currentPosition += yyleng; return FALSE;            }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 45 "862018328.lex"
+#line 48 "862018328.lex"
 { currentPosition += yyleng; return RETURN;           }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 47 "862018328.lex"
+#line 50 "862018328.lex"
 { currentPosition += yyleng; return SUB;              }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 48 "862018328.lex"
+#line 51 "862018328.lex"
 { currentPosition += yyleng; return ADD;              }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 49 "862018328.lex"
+#line 52 "862018328.lex"
 { currentPosition += yyleng; return MULT;             }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 50 "862018328.lex"
+#line 53 "862018328.lex"
 { currentPosition += yyleng; return DIV;              }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 51 "862018328.lex"
+#line 54 "862018328.lex"
 { currentPosition += yyleng; return MOD;              }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 53 "862018328.lex"
+#line 56 "862018328.lex"
 { currentPosition += yyleng; return EQ;               }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 54 "862018328.lex"
+#line 57 "862018328.lex"
 { currentPosition += yyleng; return NEQ;              }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 55 "862018328.lex"
+#line 58 "862018328.lex"
 { currentPosition += yyleng; return LT;               }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 56 "862018328.lex"
+#line 59 "862018328.lex"
 { currentPosition += yyleng; return GT;               }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 57 "862018328.lex"
+#line 60 "862018328.lex"
 { currentPosition += yyleng; return LTE;              }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 58 "862018328.lex"
+#line 61 "862018328.lex"
 { currentPosition += yyleng; return GTE;              }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 60 "862018328.lex"
+#line 63 "862018328.lex"
 { currentPosition += yyleng; return SEMICOLON;        }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 61 "862018328.lex"
+#line 64 "862018328.lex"
 { currentPosition += yyleng; return COLON;            }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 62 "862018328.lex"
+#line 65 "862018328.lex"
 { currentPosition += yyleng; return COMMA;            }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 63 "862018328.lex"
+#line 66 "862018328.lex"
 { currentPosition += yyleng; return L_PAREN;          }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 64 "862018328.lex"
+#line 67 "862018328.lex"
 { currentPosition += yyleng; return R_PAREN;          }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 65 "862018328.lex"
+#line 68 "862018328.lex"
 { currentPosition += yyleng; return L_SQUARE_BRACKET; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 66 "862018328.lex"
+#line 69 "862018328.lex"
 { currentPosition += yyleng; return R_SQUARE_BRACKET; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 67 "862018328.lex"
+#line 70 "862018328.lex"
 { currentPosition += yyleng; return ASSIGN;           }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 69 "862018328.lex"
+#line 72 "862018328.lex"
 { currentPosition += yyleng; yylval.dval = atof(yytext); return NUMBER; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 70 "862018328.lex"
+#line 73 "862018328.lex"
 { printf("IDENTIFIER %s\n", yytext); currentPosition += yyleng; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 72 "862018328.lex"
+#line 75 "862018328.lex"
 { /*ignore spaces*/ currentPosition = 1; currentLine++; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 73 "862018328.lex"
+#line 76 "862018328.lex"
 { currentLine++; currentPosition = 1; return END; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 74 "862018328.lex"
+#line 77 "862018328.lex"
 { currentPosition += yyleng; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 76 "862018328.lex"
+#line 79 "862018328.lex"
 { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 77 "862018328.lex"
+#line 80 "862018328.lex"
 { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 78 "862018328.lex"
+#line 81 "862018328.lex"
 { printf("Error at line %u, column %u: Identifier \" %s \" cannot end with an underscore", currentLine, currentPosition, yytext); exit(0); }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 79 "862018328.lex"
+#line 82 "862018328.lex"
 { printf("Error at line %u, column %u: unrecognized symbol \" %s \" \n", currentLine, currentPosition, yytext); exit(0); }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 81 "862018328.lex"
+#line 84 "862018328.lex"
 ECHO;
 	YY_BREAK
-#line 1014 "lex.yy.c"
+#line 1016 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1896,28 +1898,5 @@ int main()
 	return 0;
 	}
 #endif
-#line 81 "862018328.lex"
+#line 84 "862018328.lex"
 
-
-int main(int argc, char ** argv)
-{
-     //Give the option to specify file or stdin input
-     if(argc >= 2)
-     {
-          //Open the file readonly
-          yyin = fopen(argv[1], "r");
-          
-          //If yyin failed to open, revert to stdin
-          if(yyin == NULL)
-          {
-               yyin = stdin;
-          }
-          else //Case where no file was specified to begin with
-          {
-               yyin = stdin;
-          }
-     }
-
-     //Run the lexer
-     yylex();
-}
