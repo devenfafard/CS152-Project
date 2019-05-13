@@ -1975,14 +1975,14 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 162 "mini_l.y"
-    { cout << "var -> IDENT " <<*((yyvsp[(1) - (1)].op_val)) << endl;;}
+    { cout << "var -> IDENT " <<*((yyvsp[(1) - (1)].op_val))<< endl;;}
     break;
 
   case 70:
 
 /* Line 1455 of yacc.c  */
 #line 163 "mini_l.y"
-    { cout << "var -> IDENT " <<*(1)<< " L_SQUARE_BRACKET expression R_SQUARE_BRACKET" << endl; ;}
+    { cout << "var -> IDENT " <<*((yyvsp[(1) - (4)].op_val))<< " L_SQUARE_BRACKET expression R_SQUARE_BRACKET" << endl; ;}
     break;
 
 
