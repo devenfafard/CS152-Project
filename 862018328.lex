@@ -82,3 +82,5 @@ VALID          {ALPHANUMERIC}|_
 .                   { printf("Error at line %u, column %u: unrecognized symbol \" %s \" \n", currentLine, currentPosition, yytext); exit(0); }
 
 %%
+
+
