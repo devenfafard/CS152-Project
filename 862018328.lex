@@ -11,9 +11,6 @@
    
 %}
 
-
-
-
 NUMBER         [0-9]
 ALPHA          [A-Z|a-z]
 ALPHANUMERIC   [a-z|A-Z|0-9]
@@ -71,18 +68,41 @@ VALID          {ALPHANUMERIC}|_
 "]"            { currentPosition += yyleng; return R_SQUARE_BRACKET; }
 ":="           { currentPosition += yyleng; return ASSIGN;           }
 
+_({VALID}*)         { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
+{NUMBER}+({VALID}*)  { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
+{VALID}*_           { printf("Error at line %u, column %u: Identifier \" %s \" cannot end with an underscore", currentLine, currentPosition, yytext); exit(0); }
+.                   { printf("Error at line %u, column %u: unrecognized symbol \" %s \" \n", currentLine, currentPosition, yytext); exit(0); }
+
+
 {NUMBER}+                  { currentPosition += yyleng; return NUMBER; }
-{ALPHA}(_*{ALPHANUMERIC}*) { printf("IDENTIFIER %s\n", yytext); currentPosition += yyleng; }
+{ALPHA}(_|{ALPHANUMERIC})* { /*printf("IDENTIFIER %s\n", yytext);*/ yylval.op_val = yytext; currentPosition += yyleng; return IDENTIFIER; }
 
 "##".*           { /*ignore spaces*/ currentPosition = 1; currentLine++; }
 "\n"             { currentLine++; currentPosition = 1; return END; }
 [ \t]+           { currentPosition += yyleng; }
 
-\_({VALID}*)         { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
-{NUMBER}+({VALID}*)  { printf("Error at line %u, column %u: Identifier \" %s \" must begin with a letter", currentLine, currentPosition, yytext); exit(0); }
-{VALID}*_           { printf("Error at line %u, column %u: Identifier \" %s \" cannot end with an underscore", currentLine, currentPosition, yytext); exit(0); }
-.                   { printf("Error at line %u, column %u: unrecognized symbol \" %s \" \n", currentLine, currentPosition, yytext); exit(0); }
-
 %%
 
+int yyparse();
 
+int main(int argc, char ** argv)
+{
+    //Give option to specify input
+    if(argc >= 2)
+    {
+        yyin = fopen(argv[1], "r");
+  
+        //If yyin failed, revert to stdin
+        if(yyin == NULL)
+        {
+           yyin = stdin;
+        }
+        else // No file specified
+        {
+           yyin = stdin;
+        }
+     }
+     
+     yyparse();
+     return 0;
+}

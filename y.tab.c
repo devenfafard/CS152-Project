@@ -1407,7 +1407,7 @@ yyreduce:
 
   case 9:
 #line 51 "mini_l.y" /* yacc.c:1646  */
-    { printf("id -> IDENTIFIER \n"); }
+    { printf("id -> IDENTIFIER %s \n", (yyvsp[0].op_val) ); }
 #line 1412 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -2009,7 +2009,6 @@ yyreturn:
 #line 167 "mini_l.y" /* yacc.c:1906  */
 
 
-
 int yyerror(const char* s)
 {
      extern int currentLine;
@@ -2017,4 +2016,4 @@ int yyerror(const char* s)
 
      printf("Error %s at symbol \"%s\" on line %d\n", s, yytext, currentLine);
      exit(1);
-} 
+}

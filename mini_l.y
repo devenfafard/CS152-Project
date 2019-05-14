@@ -48,7 +48,7 @@ declarations:  declaration SEMICOLON declarations { printf( "declarations -> dec
 declaration:   id COLON assign { printf("id COLON assign\n"); }
                ;
 
-id:            IDENTIFIER { printf("id -> IDENTIFIER \n"); }
+id:            IDENTIFIER { printf("id -> IDENTIFIER %s \n", $1 ); }
                | IDENTIFIER COMMA id { printf("id -> IDENTIFIER COMMA id\n"); }
                ;
 
@@ -166,7 +166,6 @@ var:               IDENTIFIER { printf("var -> IDENT %s \n", $1);}
 
 %%
 
-
 int yyerror(const char* s)
 {
      extern int currentLine;
@@ -174,4 +173,4 @@ int yyerror(const char* s)
 
      printf("Error %s at symbol \"%s\" on line %d\n", s, yytext, currentLine);
      exit(1);
-} 
+}
