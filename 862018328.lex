@@ -5,12 +5,14 @@
  */
 
 %{
-   #include "heading.h"
+   #include "y.tab.h"
+   int currentLine = 1;
+   int currentPosition = 1;
    
 %}
 
-		int currentLine = 1;
-   		int currentPosition = 1;
+
+
 
 NUMBER         [0-9]
 ALPHA          [A-Z|a-z]
@@ -29,7 +31,7 @@ VALID          {ALPHANUMERIC}|_
 "integer"      { currentPosition += yyleng; return INTEGER;          }
 "array"        { currentPosition += yyleng; return ARRAY;            }
 "of"           { currentPosition += yyleng; return OF;               }
-"if"           { currentPosition += yyleng; return IS;               }
+"if"           { currentPosition += yyleng; return IF;               }
 "then"         { currentPosition += yyleng; return THEN;             }
 "endif"        { currentPosition += yyleng; return ENDIF;            }
 "else"         { currentPosition += yyleng; return ELSE;             }
@@ -69,7 +71,7 @@ VALID          {ALPHANUMERIC}|_
 "]"            { currentPosition += yyleng; return R_SQUARE_BRACKET; }
 ":="           { currentPosition += yyleng; return ASSIGN;           }
 
-{NUMBER}+                  { currentPosition += yyleng; yylval.dval = atof(yytext); return NUMBER; }
+{NUMBER}+                  { currentPosition += yyleng; return NUMBER; }
 {ALPHA}(_*{ALPHANUMERIC}*) { printf("IDENTIFIER %s\n", yytext); currentPosition += yyleng; }
 
 "##".*           { /*ignore spaces*/ currentPosition = 1; currentLine++; }

@@ -1,21 +1,22 @@
 %{
- #include "heading.h"
- int yyerror(char *s);
+ #include <stdio.h>
+ #include <stdlib.h>
+ int yyerror(const char *s);
  int yylex(void);
 %}
 
 %union
 {
     int val;
-    string* op_val;
+    char* op_val;
 }
 
 %start input
 
-%token FUNCTION BEGINPARAMS ENDPARAMS BEGINLOCALS ENDLOCALS BEGINBODY ENDBODY INTEGER 
+%token FUNCTION BEGIN_PARAMS END_PARAMS BEGIN_LOCALS END_LOCALS BEGIN_BODY END_BODY INTEGER 
        ARRAY OF IF THEN ENDIF ELSE WHILE DO BEGINLOOP ENDLOOP CONTINUE READ WRITE AND
        OR NOT TRUE FALSE RETURN SEMICOLON COLON COMMA L_PAREN R_PAREN L_SQUARE_BRACKET
-       R_SQUARE_BRACKET ASSIGN
+       R_SQUARE_BRACKET ASSIGN END
 
 %token <val> NUMBER
 %token <op_val> IDENTIFIER
@@ -29,152 +30,148 @@
 
 %%
 
-input:         functions { cout << "input -> functions" << endl; }
+input:         functions { printf("input -> functions\n"); }
                ;
 
-functions:     function functions { cout << "functions -> function functions" << endl; }
-               | { cout << "function -> EMPTY" << endl; }
+functions:     function functions { printf("functions -> function functions\n"); }
+               | { printf("function -> EMPTY\n"); }
                ;
 
-function:      FUNCTION IDENTIFIER SEMICOLON BEGINPARAMS declarations ENDPARAMS BEGINLOCALS
-               declarations ENDLOCALS BEGINBODY statements ENDBODY
-               { cout << "FUNCTION IDENT" << *($2) << "SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY" << endl; }
+function:      FUNCTION IDENTIFIER SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS
+               declarations END_LOCALS BEGIN_BODY statements END_BODY
+               { printf("FUNCTION IDENTIFIER SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY\n"); }
 
-declarations:  declaration SEMICOLON declarations { cout << "declarations -> declaration SEMICOLON declarations" << endl; }
-               | { cout << "declarations -> EMPTY" << endl; }
+declarations:  declaration SEMICOLON declarations { printf( "declarations -> declaration SEMICOLON declarations\n"); }
+               | { printf("declarations -> EMPTY\n"); }
                ;
 
-declaration:   id COLON assign { cout << "id COLON assign" << endl; }
+declaration:   id COLON assign { printf("id COLON assign\n"); }
                ;
 
-id:            IDENTIFIER { cout << "id -> IDENTIFIER " << *($1) << endl; }
-               | IDENTIFIER COMMA id { cout << "id -> IDENTIFIER " << *($1) << " COMMA id" << endl; }
+id:            IDENTIFIER { printf("id -> IDENTIFIER \n"); }
+               | IDENTIFIER COMMA id { printf("id -> IDENTIFIER COMMA id\n"); }
                ;
 
-assign:        INTEGER { cout << "assign -> INTEGER" << endl; }
-               | ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER { cout << "ARRAY L_SQUARE_BRACKET " << $3 << " R_SQUARE_BRACKET OF INTEGER" << endl; }
+assign:        INTEGER { printf("assign -> INTEGER\n"); }
+               | ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER { printf("ARRAY L_SQUARE_BRACKET R_SQUARE_BRACKET OF INTEGER\n"); }
                ;
 
-statements:    statement SEMICOLON statements { cout << "statements -> statement SEMICOLON statements" << endl; }
-               | statement SEMICOLON { cout << "statements -> statement SEMICOLON" << endl; }
+statements:    statement SEMICOLON statements { printf("statements -> statement SEMICOLON statements\n"); }
+               | statement SEMICOLON { printf("statements -> statement SEMICOLON\n"); }
                ;
 
-statement:     vars { cout << "statement -> vars" << endl; }
-               | ifs { cout << "statement -> ifs" << endl; }
-               | whiles { cout << "statement -> whiles" << endl; }
-               | dos { cout << "statement -> dos" << endl; }
-               | read { cout << "statement -> read" << endl; }
-               | write { cout << "statement -> write" << endl; }
-               | continue { cout << "statement -> continue" << endl; }
-               | return { cout << "statement -> return" << endl; }
+statement:     vars { printf("statement -> vars\n"); }
+               | ifs { printf("statement -> ifs\n"); }
+               | whiles { printf("statement -> whiles\n"); }
+               | dos { printf("statement -> dos\n"); }
+               | read { printf("statement -> read\n"); }
+               | write { printf("statement -> write\n"); }
+               | continue { printf("statement -> continue\n"); }
+               | return { printf("statement -> return\n"); }
                ;
 
-vars:          var ASSIGN expression { cout << "vars -> var ASSIGN expression" << endl; }
+vars:          var ASSIGN expression { printf("vars -> var ASSIGN expression\n"); }
                ;
 
-ifs:           IF bool_expr THEN statements ENDIF { cout << "ifs -> IF bool_expr THEN statments" << endl; }
-               | IF bool_expr THEN statements ELSE statements ENDIF { cout << "ifs -> IF bool_expr THEN statements ELSE statements ENDIF" << endl; }
+ifs:           IF bool_expr THEN statements ENDIF { printf("ifs -> IF bool_expr THEN statments\n"); }
+               | IF bool_expr THEN statements ELSE statements ENDIF { printf("ifs -> IF bool_expr THEN statements ELSE statements ENDIF\n"); }
                ;
 
-whiles:        WHILE bool_expr BEGINLOOP statements ENDLOOP { cout << "whiles -> WHILE bool_expr BEGINLOOP statements ENDLOOP" << endl; }
+whiles:        WHILE bool_expr BEGINLOOP statements ENDLOOP { printf("whiles -> WHILE bool_expr BEGINLOOP statements ENDLOOP\n"); }
                ;
 
-dos:           DO BEGINLOOP statements ENDLOOP WHILE bool_expr { cout << "dos -> DO BEGINLOOP statements ENDLOOP WHILE bool_expr" << endl; }
+dos:           DO BEGINLOOP statements ENDLOOP WHILE bool_expr { printf("dos -> DO BEGINLOOP statements ENDLOOP WHILE bool_expr\n"); }
                ;
 
-read:          READ var empty { cout << "read -> READ var empty" << endl; }
+read:          READ var empty { printf("read -> READ var empty\n"); }
                ;
 
-write:         WRITE var empty { cout << "write -> WRITE var empty" << endl; }
+write:         WRITE var empty { printf("write -> WRITE var empty\n"); }
                ;
 
-empty:         { cout << "empty -> EMPTY" << endl; }
-               | COMMA var empty { cout << "empty -> COMMA var empty" << endl; }
+empty:         { printf("empty -> EMPTY\n"); }
+               | COMMA var empty { printf("empty -> COMMA var empty\n"); }
                ;
 
-continue:      CONTINUE { cout << "continue -> CONTINUE" << endl; }
+continue:      CONTINUE { printf("continue -> CONTINUE\n"); }
                ;
 
-return:        RETURN expression { cout << "return -> RETURN expression" << endl; }
+return:        RETURN expression { printf("return -> RETURN expression\n"); }
                ;
 
-bool_expr:     relation_and_expr { cout << "bool_expr -> relation_and_expr"<< endl; }
-               | bool_expr OR relation_and_expr { cout << "bool_expr -> bool_expr OR relation_and_expr" << endl; }
+bool_expr:     relation_and_expr { printf("bool_expr -> relation_and_expr\n"); }
+               | bool_expr OR relation_and_expr { printf("bool_expr -> bool_expr OR relation_and_expr\n"); }
                ;
 
-relation_and_expr: relation_expr {cout << "relation_and_expr -> relation_expr" << endl; }
-                   | relation_and_expr AND relation_expr {cout << "relation_and_expr -> relation_and_expr AND relation_expr" << endl; }
+relation_and_expr: relation_expr {printf("relation_and_expr -> relation_expr\n"); }
+                   | relation_and_expr AND relation_expr {printf("relation_and_expr -> relation_and_expr AND relation_expr\n"); }
                    ;
 
-relation_expr:     rexpr { cout << "relation_expr -> rexpr" << endl; }
-                   | NOT rexpr {cout << "relation_expr -> NOT rexpr" << endl; }
+relation_expr:     rexpr { printf("relation_expr -> rexpr\n"); }
+                   | NOT rexpr {printf("relation_expr -> NOT rexpr\n"); }
                    ;
 
-rexpr:             expression comp expression { cout << "rexpr -> expression comp expression" << endl;}
-                   | TRUE { cout << "rexpr -> TRUE" << endl; }
-                   | FALSE { cout << "rexpr -> FALSE" << endl; }
-                   | L_PAREN bool_expr R_PAREN { cout << "rexpr -> L_PAREN bool_expr R_PAREN" << endl;}
+rexpr:             expression comp expression { printf("rexpr -> expression comp expression\n");}
+                   | TRUE { printf("rexpr -> TRUE\n"); }
+                   | FALSE { printf("rexpr -> FALSE\n"); }
+                   | L_PAREN bool_expr R_PAREN { printf("rexpr -> L_PAREN bool_expr R_PAREN\n");}
                    ;
 
-comp:              EQ {cout << "comp -> EQ" << endl; }
-                   | NEQ { cout << "comp -> NEQ" << endl; }
-                   | LT { cout << "comp -> LT" << endl; }
-                   | GT {cout << "comp -> GT" << endl; }
-                   | LTE { cout << "comp -> LTE" << endl; }
-                   | GTE { cout << "comp -> GTE" << endl; }
+comp:              EQ {printf("comp -> EQ\n"); }
+                   | NEQ { printf("comp -> NEQ\n"); }
+                   | LT { printf("comp -> LT\n"); }
+                   | GT {printf("comp -> GT\n"); }
+                   | LTE { printf("comp -> LTE\n"); }
+                   | GTE { printf("comp -> GTE\n"); }
                    ;
 
-expression:        mult_expr add_expr { cout << "expression -> mult_expr add_expr" << endl;}
+expression:        mult_expr add_expr { printf("expression -> mult_expr add_expr\n");}
                    ;
 
-add_expr:          ADD mult_expr add_expr { cout << "add_expr -> ADD mul_expr expradd" << endl;}
-                   | SUB mult_expr add_expr { cout << " add_expr -> SUB mult_expr add_expr" << endl; }
-                   | { cout << "add_expr -> EMPTY" << endl;}
+add_expr:          ADD mult_expr add_expr { printf("add_expr -> ADD mul_expr expradd\n");}
+                   | SUB mult_expr add_expr { printf(" add_expr -> SUB mult_expr add_expr\n"); }
+                   | { printf("add_expr -> EMPTY\n");}
                    ;
 
-mult_expr:         term multi_term { cout << "mult_expr -> term multi_term" << endl; }
+mult_expr:         term multi_term { printf("mult_expr -> term multi_term\n"); }
                    ;
 
-multi_term:        MULT term multi_term { cout << "multi_term -> MULT term multi_term" << endl;}
-                   | DIV term multi_term { cout << "multi_term -> DIV term multi_term" << endl;}
-                   | MOD term multi_term { cout << "multi_term -> MOD term multi_term" << endl; }
-                   | { cout << "multi_term -> EMPTY" << endl; }
+multi_term:        MULT term multi_term { printf("multi_term -> MULT term multi_term\n");}
+                   | DIV term multi_term { printf("multi_term -> DIV term multi_term\n");}
+                   | MOD term multi_term { printf("multi_term -> MOD term multi_term\n"); }
+                   | { printf("multi_term -> EMPTY\n"); }
                    ;
 
-term:              positive_term { cout << "term -> positive_term" << endl;}
-                   | SUB positive_term {cout << "term -> SUB positive_term" << endl;}
-                   | IDENTIFIER term_iden { cout << "term -> IDENT " <<*($1)<<" term_iden" <<endl;}
+term:              positive_term { printf("term -> positive_term\n");}
+                   | SUB positive_term {printf("term -> SUB positive_term\n");}
+                   | IDENTIFIER term_iden { printf("term -> IDENT term_iden/n");}
                    ;
 
-positive_term:     var {cout << "positive_term -> var" << endl; }
-                   | NUMBER { cout << "positive_term -> NUMBER " << $1 << endl; }
-                   | L_PAREN expression R_PAREN { cout << "positive_term -> L_PAREN expression R_PAREN" << endl; }
+positive_term:     var {printf("positive_term -> var\n"); }
+                   | NUMBER { printf("positive_term -> NUMBER \n"); }
+                   | L_PAREN expression R_PAREN { printf("positive_term -> L_PAREN expression R_PAREN\n");}
                    ;
 
-term_iden:         L_PAREN term_ex R_PAREN { cout << "term_iden -> L_PAREN term_ex R_PAREN" << endl; }
-                   | L_PAREN R_PAREN { cout << "term_iden -> L_PAREN R_PAREN" << endl; }
+term_iden:         L_PAREN term_ex R_PAREN { printf("term_iden -> L_PAREN term_ex R_PAREN\n"); }
+                   | L_PAREN R_PAREN { printf("term_iden -> L_PAREN R_PAREN\n"); }
                    ;
 
-term_ex:           expression { cout << "term_ex -> expression" << endl; }
-                   | expression COMMA term_ex { cout << "term_ex -> expression COMMA term_ex" << endl; }
+term_ex:           expression { printf("term_ex -> expression\n"); }
+                   | expression COMMA term_ex { printf("term_ex -> expression COMMA term_ex\n"); }
                    ;
 
-var:               IDENTIFIER { cout << "var -> IDENT " <<*($1)<< endl;}
-                   | IDENTIFIER L_SQUARE_BRACKET expression R_SQUARE_BRACKET { cout << "var -> IDENT " <<*($1)<< " L_SQUARE_BRACKET expression R_SQUARE_BRACKET" << endl; }
+var:               IDENTIFIER { printf("var -> IDENT %s \n", $1);}
+                   | IDENTIFIER L_SQUARE_BRACKET expression R_SQUARE_BRACKET { printf("var -> IDENT %s L_SQUARE_BRACKET expression R_SQUARE_BRACKET\n"); }
                    ;
 
 %%
 
-int yyerror(string s)
-{
-     extern int row, column;
-     extern char *yytext;
 
-     cerr << "Error at line " << row << ", column " << column <<" : unexpected symbol " << yytext << "." << endl;
+int yyerror(const char* s)
+{
+     extern int currentLine;
+     extern char* yytext;
+
+     printf("Error %s at symbol \"%s\" on line %d\n", s, yytext, currentLine);
      exit(1);
-}
-
-int yyerror(char *s)
-{
-     return yyerror(string(s));
 } 
